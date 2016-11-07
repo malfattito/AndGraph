@@ -122,4 +122,3 @@ public class AGVector2D
 		return (((AGVector2D)vrObjeto).fX == fX && ((AGVector2D)vrObjeto).fY == fY);
 	}
 }
-/***
