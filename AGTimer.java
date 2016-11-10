@@ -105,6 +105,6 @@ public class AGTimer
 	******************************************/
 	public int getEndTime()
 	{
-		return iCurrentTime;
+		return iEndTime;
 	}
 }
