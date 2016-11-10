@@ -18,7 +18,7 @@ public class AGInputManager
 	public static AGTouchScreen vrTouchEvents = null;
 	public static AGAccelerometer vrAccelerometer = null;
 	
-	/*******************************************
+	/********************************************
 	* Name: init()
 	* Description: used to init input resources
 	* Parameters: GLSurfaceView

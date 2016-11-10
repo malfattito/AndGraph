@@ -25,7 +25,7 @@ public class AGVector2D
 		setXY(0.0f, 0.0f);
 	}
 	
-	/*******************************************
+	/********************************************
 	* Name: AGVector2D()
 	* Description: constructor
 	* Parameters: none

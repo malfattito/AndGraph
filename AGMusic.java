@@ -19,7 +19,7 @@ public class AGMusic
 	private MediaPlayer vrMedia = null;
 	private Activity vrContext = null;
 	
-	/*******************************************
+	/********************************************
 	* Name: AGMusic()
 	* Description: Music class constructor
 	* Parameters: Activity

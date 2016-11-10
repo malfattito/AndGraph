@@ -14,7 +14,7 @@ public class AGScreenManager
 	public static int iScreenWidth = 0;
 	public static int iScreenHeight = 0;
 	
-	/*******************************************
+	/********************************************
 	* Name: setScreenSize()
 	* Description: store the new screen size
 	* Parameters: int, int

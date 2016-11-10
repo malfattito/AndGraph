@@ -403,7 +403,7 @@ public class AGSprite
 	* Description: configures the current animation index
 	* Parameters: int
 	* Returns: none
-	******************************************/
+	*******************************************/
 	public void setCurrentAnimation(int iAnim)
 	{
 		//Test if Sprite has animations to be set
@@ -420,7 +420,7 @@ public class AGSprite
 		}
 	}
 	
-	/*******************************************
+	/*********************************************
 	* Name: restartAnimation()
 	* Description: restart current animation
 	* Parameters: none

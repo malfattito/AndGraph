@@ -21,7 +21,7 @@ public class AGTimeManager
 	* Description: class constructor
 	* Parameters: none
 	* Returns: none
-	******************************************/
+	*******************************************/
 	private AGTimeManager()
 	{ 
 		lLastFrameTime = System.currentTimeMillis();

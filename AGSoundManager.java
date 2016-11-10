@@ -23,7 +23,7 @@ public class AGSoundManager
 	* Description: init sound resources
 	* Parameters: Activity
 	* Returns: none
-	******************************************/
+	*******************************************/
 	public static void init(Activity vrActivity)
 	{
 		//Atribui ao Android o controle da aplicacao

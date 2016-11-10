@@ -26,7 +26,7 @@ public class AGTimer
 		iEndTime = 1000;
 	}
 	
-	/*******************************************
+	/********************************************
 	* Name: AGTimer()
 	* Description: class constructor
 	* Parameters: int

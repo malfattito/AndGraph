@@ -38,7 +38,7 @@ public class AGSoundEffect
 	private SoundPool vrPool = null;
 	private Activity vrContext = null;
 	
-	/*******************************************
+	/*********************************************
 	* Name: AGSoundEffect()
 	* Description: Sound effect constructor
 	* Parameters: Activity

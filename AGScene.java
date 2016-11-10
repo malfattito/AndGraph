@@ -98,7 +98,7 @@ public abstract class AGScene
 		}
 	}
 	
-	/*******************************************
+	/********************************************
 	* Name: removeSprite()
 	* Description: remove a sprite from scene
 	* Parameters: AGSprite

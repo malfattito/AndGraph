@@ -32,7 +32,7 @@ public class AGGameManager implements Renderer
 	private int iPause = 20;
 	private AGScene vrCurrentScene = null;
 	
-	/*******************************************
+	/********************************************
 	* Name: AGGameManager()
 	* Description: Class constructor
 	* Parameters: Activity, boolean

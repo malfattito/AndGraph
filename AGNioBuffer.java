@@ -15,7 +15,7 @@ import java.nio.FloatBuffer;
 
 class AGNioBuffer 
 {
-	/*******************************************
+	/********************************************
 	* Name: generateNioBuffer()
 	* Description: used to generate a FloatBuffer object
 	* Parameters: float[]

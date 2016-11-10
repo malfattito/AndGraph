@@ -34,7 +34,7 @@ class AGTextureData
 	* Description: class constructor
 	* Parameters: int, int, int, int
 	* Returns: none
-	******************************************/
+	*******************************************/
 	AGTextureData(int pRef, int pCod, int pWidth, int pHeight)
 	{
 		iImageRef = pRef;
@@ -50,7 +50,7 @@ class AGTextureManager
 	private static Activity vrActivity = null;
 	private static ArrayList<AGTextureData> vrTextureList = null;
 	
-	/*******************************************
+	/********************************************
 	* Name: init()
 	* Description: used to validate a context reference
 	* Parameters: Activity

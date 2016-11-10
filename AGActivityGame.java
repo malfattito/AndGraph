@@ -17,7 +17,7 @@ public class AGActivityGame extends Activity
 	//Attributes
 	protected AGGameManager vrManager = null;
 	
-	/*******************************************
+	/********************************************
 	* Name: onCreate()
 	* Description: method called to create the application
 	* Parameters: Bundle

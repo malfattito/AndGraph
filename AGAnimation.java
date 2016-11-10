@@ -22,7 +22,7 @@ public class AGAnimation
 	* Description: class constructor
 	* Parameters: int[]
 	* Returns: none
-	******************************************/
+	*******************************************/
 	public AGAnimation(int[] pFrames)
 	{
 		iFPS = 1;

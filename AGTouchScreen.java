@@ -20,7 +20,7 @@ public class AGTouchScreen implements OnTouchListener
 	private int iCurrentEvent = 0;
 	public boolean bBackButtonClicked = false;
 	
-	/*******************************************
+	/********************************************
 	* Name: getLasPosition()
 	* Description: returns the last event position
 	* Parameters: none
