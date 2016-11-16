@@ -181,7 +181,8 @@ public class AGGameManager implements Renderer
 			if (vrCurrentScene == vrScenes.get(iIndex))
 				return;
 			
-			vrCurrentScene.release(); 
+			vrCurrentScene.release();
+			System.gc();
 			vrCurrentScene.bSceneStarted = false;
 			vrCurrentScene = vrScenes.get(iIndex);
 			vrCurrentScene.init();
