@@ -47,6 +47,7 @@ public class AGGameManager implements Renderer
         pActivity.requestWindowFeature(Window.FEATURE_NO_TITLE);
         pActivity.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
         		                  WindowManager.LayoutParams.FLAG_FULLSCREEN);
+		pActivity.getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         
         //Inits the texture and sound managers
         AGTextureManager.init(pActivity);
