@@ -6,16 +6,28 @@
  ********************************************/
 
 //Engine package
-package br.edu.catolica_to.madmetal.AndGraph;
+package android.cg.com.megavirada.AndGraph;
 
 //Used packages
 import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
 
 public class AGActivityGame extends Activity
 {
 	//Attributes
 	protected AGGameManager vrManager = null;
+
+	/********************************************
+	 * Name: AGActivity
+	 * Description: constructor
+	 * Parameters: Activity, boolean
+	 * Returns: none
+	 ******************************************/
+	public void init(Activity context, boolean accel)
+	{
+		vrManager = new AGGameManager(context, accel);
+	}
 	
 	/********************************************
 	* Name: onCreate()

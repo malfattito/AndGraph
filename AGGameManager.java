@@ -6,7 +6,7 @@
  ********************************************/
 
 //Engine Package
-package br.edu.catolica_to.madmetal.AndGraph;
+package android.cg.com.megavirada.AndGraph;
 
 //Used packages
 
@@ -187,6 +187,7 @@ public class AGGameManager implements Renderer
 			vrCurrentScene = vrScenes.get(iIndex);
 			vrCurrentScene.init();
 			vrCurrentScene.bSceneStarted = true;
+			AGInputManager.vrTouchEvents.bBackButtonClicked = false;
 		}
 	}
 	

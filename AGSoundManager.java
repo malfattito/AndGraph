@@ -6,7 +6,7 @@
  ********************************************/
 
 //Engine Package
-package br.edu.catolica_to.madmetal.AndGraph;
+package android.cg.com.megavirada.AndGraph;
 
 //Pacotes utilizados
 import android.app.Activity;
