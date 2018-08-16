@@ -6,7 +6,7 @@
  ********************************************/
 
 //Engine package
-package android.cg.com.megavirada.AndGraph;
+package br.fadep.exemplo1.AndGraph;
 
 //Used packages
 import android.app.Activity;
@@ -27,6 +27,17 @@ public class AGActivityGame extends Activity
 	public void init(Activity context, boolean accel)
 	{
 		vrManager = new AGGameManager(context, accel);
+	}
+
+	/********************************************
+	 * Name: getGameManager()
+	 * Description: returns the manager object game
+	 * Parameters: None
+	 * Returns: AGGameManager
+	 ******************************************/
+	public AGGameManager getGameManager()
+	{
+		return vrManager;
 	}
 	
 	/********************************************
