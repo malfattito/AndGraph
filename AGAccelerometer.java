@@ -6,7 +6,7 @@
  ********************************************/
 
 //Engine Package
-package android.cg.com.megavirada.AndGraph;
+package game.curso.cursogamesandroid2d.AndGraphics;
 
 //Used Packages
 import android.app.Activity;
@@ -21,7 +21,7 @@ import android.view.WindowManager;
 public class AGAccelerometer implements SensorEventListener
 {
 	//Class Attributes
-	public float fAccelX = 0.0f, fAccelY = 0.0f, fAccelZ = 0.0f;
+	private float fAccelX = 0.0f, fAccelY = 0.0f, fAccelZ = 0.0f;
 	private int iRotation = 0;
 	private Display display = null;
 	private int[] referenceVector = null;
@@ -42,14 +42,14 @@ public class AGAccelerometer implements SensorEventListener
 	* Parameters: Activity
 	* Returns: none
 	******************************************/
-	public void init(Activity vrActivity)
+	void init(Activity vrActivity)
 	{
 		//Gets a reference for the Android sensor manager
 		vrSensorManager = (SensorManager)vrActivity.getSystemService(Context.SENSOR_SERVICE);
 		
 		//Discover if exists at least one sensor at device
 		bAccelerated = vrSensorManager.getSensorList(Sensor.TYPE_ACCELEROMETER).size() > 0;
-		
+
 		//If a sensor was located, gets a reference
 		if(bAccelerated)
 		{
@@ -72,8 +72,8 @@ public class AGAccelerometer implements SensorEventListener
 	******************************************/
 	public void onSensorChanged(SensorEvent event)
 	{
-		fAccelX =  (float)referenceVector[0] * event.values[referenceVector[2]]; 
-	    fAccelY =  (float)referenceVector[1] * event.values[referenceVector[3]]; 
+		fAccelX =  (float)referenceVector[0] * event.values[referenceVector[2]];
+	    fAccelY =  (float)referenceVector[1] * event.values[referenceVector[3]];
 	    fAccelZ =  event.values[2];
 	}
 	
@@ -93,7 +93,7 @@ public class AGAccelerometer implements SensorEventListener
 	* Parameters: None
 	* Returns: float
 	******************************************/
-	public float getAccelX()
+	float getAccelX()
 	{
 		return fAccelX;
 	}
@@ -104,7 +104,7 @@ public class AGAccelerometer implements SensorEventListener
 	* Parameters: None
 	* Returns: float
 	******************************************/
-	public float getAccelY()
+	float getAccelY()
 	{
 		return fAccelY;
 	}
@@ -115,7 +115,7 @@ public class AGAccelerometer implements SensorEventListener
 	* Parameters: None
 	* Returns: float
 	******************************************/
-	public float getAccelZ()
+	float getAccelZ()
 	{
 		return fAccelZ;
 	}
@@ -137,7 +137,7 @@ public class AGAccelerometer implements SensorEventListener
 	* Parameters: none
 	* Returns: none
 	******************************************/
-	public void onPause()
+	void onPause()
 	{
 		if (bAccelerated)
 		{
@@ -151,7 +151,7 @@ public class AGAccelerometer implements SensorEventListener
 	* Parameters: none
 	* Returns: none
 	******************************************/
-	public void onResume()
+	void onResume()
 	{
 		if (bAccelerated)
 		{
@@ -165,7 +165,7 @@ public class AGAccelerometer implements SensorEventListener
 	* Parameters: none
 	* Returns: none
 	******************************************/
-	public void release()
+	void release()
 	{
 		display = null;
 		referenceVector = null;

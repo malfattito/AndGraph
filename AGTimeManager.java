@@ -6,9 +6,11 @@
  ********************************************/
 
 //Engine Package
-package android.cg.com.megavirada.AndGraph;
+package game.curso.cursogamesandroid2d.AndGraphics;
 
-public class AGTimeManager 
+import android.util.Log;
+
+public class AGTimeManager
 {
 	//Attibutes
 	private static long 	lLastFrameTime = 0;
@@ -66,7 +68,7 @@ public class AGTimeManager
 			lLastFrameTime = (lCurrentTime >= lLastFrameTime) ? lLastFrameTime : lCurrentTime;
 		}
 		while(!(lCurrentFrameTime >= MININTERVAL));
-		
+
 		lLastFrameTime = lCurrentTime;
 	}
 }

@@ -6,7 +6,7 @@
  ********************************************/
 
 //Engine Package
-package android.cg.com.megavirada.AndGraph;
+package game.curso.cursogamesandroid2d.AndGraphics;
 
 //Used packages
 import java.nio.ByteBuffer;
@@ -21,7 +21,7 @@ class AGNioBuffer
 	* Parameters: float[]
 	* Returns: FloatBuffer
 	******************************************/
-	public static FloatBuffer generateNioBuffer(float[] vetorCoordenadas)
+	static FloatBuffer generateNioBuffer(float[] vetorCoordenadas)
 	{
 		//Alloc Bytes in memory
 		ByteBuffer vrByteBuffer = ByteBuffer.allocateDirect(vetorCoordenadas.length * 4);

@@ -6,7 +6,7 @@
  ********************************************/
 
 //Engine Package
-package android.cg.com.megavirada.AndGraph;
+package game.curso.cursogamesandroid2d.AndGraphics;
 
 //Pacotes utilizados
 import android.app.Activity;
@@ -24,7 +24,7 @@ public class AGSoundManager
 	* Parameters: Activity
 	* Returns: none
 	*******************************************/
-	public static void init(Activity vrActivity)
+	protected static void init(Activity vrActivity)
 	{
 		//Atribui ao Android o controle da aplicacao
 		vrActivity.setVolumeControlStream(AudioManager.STREAM_MUSIC);

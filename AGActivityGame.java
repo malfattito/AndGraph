@@ -6,17 +6,16 @@
  ********************************************/
 
 //Engine package
-package br.fadep.exemplo1.AndGraph;
+package game.curso.cursogamesandroid2d.AndGraphics;
 
 //Used packages
 import android.app.Activity;
-import android.content.Context;
 import android.os.Bundle;
 
 public class AGActivityGame extends Activity
 {
 	//Attributes
-	protected AGGameManager vrManager = null;
+	private AGGameManager vrManager = null;
 
 	/********************************************
 	 * Name: AGActivity
@@ -30,16 +29,16 @@ public class AGActivityGame extends Activity
 	}
 
 	/********************************************
-	 * Name: getGameManager()
-	 * Description: returns the manager object game
-	 * Parameters: None
-	 * Returns: AGGameManager
+	 * Name: addScene()
+	 * Description: register a new scene to engine
+	 * Parameters: AGScene
+	 * Returns: none
 	 ******************************************/
-	public AGGameManager getGameManager()
+	public void addScene(AGScene scene)
 	{
-		return vrManager;
+		vrManager.addScene(scene);
 	}
-	
+
 	/********************************************
 	* Name: onCreate()
 	* Description: method called to create the application

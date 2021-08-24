@@ -6,7 +6,7 @@
  ********************************************/
 
 //Engine Package
-package android.cg.com.megavirada.AndGraph;
+package game.curso.cursogamesandroid2d.AndGraphics;
 
 //Used packages
 
@@ -56,7 +56,7 @@ class AGTextureManager
 	* Parameters: Activity
 	* Returns: none
 	******************************************/
-	public static void init(Activity pActivity)
+	static void init(Activity pActivity)
 	{
 		vrActivity = pActivity;
 		vrTextureList = new ArrayList<AGTextureData>();
@@ -68,7 +68,7 @@ class AGTextureManager
 	* Parameters: GL10, int
 	* Returns: int
 	******************************************/
-	public static int loadTexture(GL10 vrOpenGL, int iReference)
+	static int loadTexture(GL10 vrOpenGL, int iReference)
 	{
 		//Verify if this texture already was loaded before (reuse)
 		for (AGTextureData vrTexture:vrTextureList)
@@ -83,8 +83,12 @@ class AGTextureManager
 		//Load a new Texture
 		//Step 1 - Image load on RAM
 		int[] vetTexturas = new int[1];
-		Bitmap vrImage  = BitmapFactory.decodeResource(AGTextureManager.vrActivity.getResources(), iReference);
-		
+
+		BitmapFactory.Options options = new BitmapFactory.Options();
+		options.inScaled = false;
+
+		Bitmap vrImage  = BitmapFactory.decodeResource(AGTextureManager.vrActivity.getResources(), iReference, options);
+
 		//Step 2 - Creating a VRAM texture area
 		vrOpenGL.glGenTextures(1, vetTexturas, 0);
 				
@@ -114,7 +118,7 @@ class AGTextureManager
 	* Parameters: int
 	* Returns: CTextureData
 	******************************************/
-	public static AGTextureData getTextureData(int pCodTexture)
+	static AGTextureData getTextureData(int pCodTexture)
 	{
 		//Try to find the Texture Object
 		for (AGTextureData vrTexture:vrTextureList)
@@ -134,7 +138,7 @@ class AGTextureManager
 	* Parameters: int
 	* Returns: none
 	******************************************/
-	public static void release(int pTexCode)
+	static void release(int pTexCode)
 	{
 		for (int iIndex=vrTextureList.size() - 1; iIndex >=0; iIndex--)
 		{
@@ -155,7 +159,7 @@ class AGTextureManager
 	* Parameters: none
 	* Returns: none
 	******************************************/
-	public static void release()
+	static void release()
 	{
 		vrTextureList.clear();
 		vrActivity = null;

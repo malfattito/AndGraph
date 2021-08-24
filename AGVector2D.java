@@ -1,12 +1,12 @@
 /********************************************
- Class: AGTouchScreen
+ Class: AGVector2D
  Description: handle TouchScreen events
  Author: Silvano Maneck Malfatti
  Date: 05/11/2013
  ********************************************/
 
 //Engine Package
-package android.cg.com.megavirada.AndGraph;
+package game.curso.cursogamesandroid2d.AndGraphics;
 
 public class AGVector2D 
 {

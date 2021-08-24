@@ -6,7 +6,7 @@
  ********************************************/
 
 //Engine Package
-package android.cg.com.megavirada.AndGraph;
+package game.curso.cursogamesandroid2d.AndGraphics;
 
 //Used Packages
 
@@ -24,7 +24,6 @@ public class AGSprite
 	public AGVector2D vrDirection = null;
 	public AGVector2D vrPosition = null;
 	public AGVector2D vrScale = null;
-	public int iFrameWidth = 0, iFrameHeight = 0;
 	public float fAlpha = 1.0f;
 	public float fAngle = 0.0f;
 	public int iMirror = NONE;
@@ -34,6 +33,7 @@ public class AGSprite
 	
 	//Private attributes
 	private ArrayList<AGAnimation> vetAnimations = null;
+	private int iFrameWidth = 0, iFrameHeight = 0;
 	private int iImageCode = 0;
 	private int iImageWidth = 0;
 	private int iImageHeight = 0;
@@ -55,6 +55,7 @@ public class AGSprite
 	private boolean bIsFadeOut = false;
 	private int iTextureCode = 0;
 	private int iCurrentFrame = 0;
+	private boolean keepInScreen = false;
 	
 	
 	/*******************************************
@@ -93,7 +94,7 @@ public class AGSprite
 	* Parameters: GL10, int, int, int
 	* Returns: none
 	******************************************/
-	public AGSprite(GL10 pOpenGL, int pCodImage, int pTotalCol, int pTotalLin)
+	public AGSprite(GL10 pOpenGL, int pCodImage, int pTotalLin, int pTotalCol)
 	{
 		vrOpenGL = pOpenGL;
 		iTotalCol = pTotalCol;
@@ -150,14 +151,14 @@ public class AGSprite
 	{
 		vetCoords = new float[8];
 		vetTextures = new FloatBuffer[1 + (iTotalCol * iTotalLin)][4];
-		
+
 		for (int iIndex = 0; iIndex < vetTextures.length - 1; iIndex++)
 		{
 			//Calc the frame coords
 			fCoordX1 = (iIndex % iTotalCol) * (1.0f / iTotalCol);
 			fCoordY1 = (iIndex / iTotalCol) * (1.0f/ iTotalLin);
-			fCoordX2 = fCoordX1 + 1.0f/(iImageWidth/iFrameWidth);
-			fCoordY2 = fCoordY1 + 1.0f/(iImageHeight/iFrameHeight);
+			fCoordX2 = fCoordX1 + 1.0f/(iTotalCol);
+			fCoordY2 = fCoordY1 + 1.0f/(iTotalLin);
 			
 			//Normal mirror
 			vetCoords[0] = fCoordX1;
@@ -252,10 +253,10 @@ public class AGSprite
 	* Parameters: int, int
 	* Returns: none
 	******************************************/
-	public void setScreenPercent(int pWidth, int pHeight)
+	public void setScreenPercent(int widthPercent, int heightPercent)
 	{
-		float fPercentX = (AGScreenManager.iScreenWidth * pWidth) / 100;
-		float fPercentY = (AGScreenManager.iScreenHeight * pHeight) / 100;
+		float fPercentX = (AGScreenManager.iScreenWidth * widthPercent) / 100;
+		float fPercentY = (AGScreenManager.iScreenHeight * heightPercent) / 100;
 		
 		vrScale.fX = (fPercentX / iFrameWidth) / 2;
 		vrScale.fY = (fPercentY / iFrameHeight) / 2;
@@ -519,6 +520,29 @@ public class AGSprite
 			vrMoveTimer.restart(pTime);
 		}
 	}
+
+	/*******************************************
+	 * Name: moveTo()
+	 * Description: usedo to interpolate sprite positions
+	 * Parameters: int, AGVector2D
+	 * Returns: none
+	 ******************************************/
+	public void moveTo(int pTime, int newPosX, int newPosY)
+	{
+		vrInitMove.setXY(vrPosition.getX(), vrPosition.getY());
+		vrEndMove.setXY(newPosX, newPosY);
+
+		if (pTime<=0 || (vrInitMove.equals(vrEndMove)))
+		{
+			vrPosition.setX(vrEndMove.getX());
+			vrPosition.setY(vrEndMove.getY());
+			vrMoveTimer.restart(0);
+		}
+		else
+		{
+			vrMoveTimer.restart(pTime);
+		}
+	}
 	
 	/*******************************************
 	* Name: moveTo()
@@ -581,7 +605,51 @@ public class AGSprite
 	public boolean moveEnded()
 	{
 		return (vrMoveTimer.iEndTime == 0);
-	}	
+	}
+
+
+	/*******************************************
+	 * Name: keepInScreen()
+	 * Description: enable the keepInScreen resource
+	 * Parameters: boolean
+	 * Returns: none
+	 * ******************************************/
+	public void keepInScreen(boolean keepScreen)
+	{
+		keepInScreen = keepScreen;
+	}
+
+	/*******************************************
+	 * Name: tryKeepInScreen()
+	 * Description: if enable, keep the sprite inside screen limits
+	 * Parameters: none
+	 * Returns: none
+	 * ******************************************/
+	private void insideScreen()
+	{
+		if (keepInScreen)
+		{
+			//Try screen limits on X axis
+			if (vrPosition.getX() < getWidth() / 2)
+			{
+				vrPosition.setX(getWidth() / 2);
+			}
+			else if (vrPosition.getX() > AGScreenManager.iScreenWidth - getWidth() / 2)
+			{
+				vrPosition.setX(AGScreenManager.iScreenWidth - getWidth() / 2);
+			}
+
+			//Try screen limits on Y axis
+			if (vrPosition.getY() < getHeight() / 2)
+			{
+				vrPosition.setY(getHeight() / 2);
+			}
+			else if (vrPosition.getY() > AGScreenManager.iScreenHeight - getHeight() / 2)
+			{
+				vrPosition.setY(AGScreenManager.iScreenHeight - getHeight() / 2);
+			}
+		}
+	}
 
 	/*******************************************
 	* Name: render()
@@ -599,6 +667,7 @@ public class AGSprite
 		updateAnimation();
 		updateMove();
 		updateFade();
+		insideScreen();
 		
 		//Sign texture and call OpenGL draw methods
 		vrOpenGL.glBindTexture(GL10.GL_TEXTURE_2D, iTextureCode);
@@ -643,23 +712,23 @@ public class AGSprite
 	}
 	
 	/*******************************************
-	* Name: collide()
+	* Name: contains()
 	* Description: used to test collision sprite and a point
 	* Parameters: AGVector2D
 	* Returns: boolean
 	******************************************/
-	public boolean collide(AGVector2D vrVector)
+	public boolean contains(AGVector2D vrVector)
 	{
-		return collide(vrVector.fX, vrVector.fY);
+		return contains(vrVector.fX, vrVector.fY);
 	}
 	
 	/*******************************************
-	* Name: collide()
+	* Name: contains()
 	* Description: used to test collision sprite and a point
 	* Parameters: float, float
 	* Returns: boolean
 	******************************************/
-	public boolean collide(float fX, float fY)
+	public boolean contains(float fX, float fY)
 	{
 		float A = vrPosition.fX - (vrScale.fX * iFrameWidth);
 		float B = vrPosition.fX + (vrScale.fX * iFrameWidth);
@@ -679,23 +748,23 @@ public class AGSprite
 	}
 	
 	/*******************************************
-	* Name: getSpriteWidth()
+	* Name: getWidth()
 	* Description: returns Sprite Height considering the scale applied
 	* Parameters: none
 	* Returns: float
 	******************************************/
-	public float getSpriteWidth()
+	public float getWidth()
 	{
 		return 2 * (vrScale.fX * iFrameWidth);
 	}
 	
 	/*******************************************
-	* Name: getSpriteHeight()
+	* Name: getHeight()
 	* Description: returns Sprite Height considering the scale applied
 	* Parameters: none
 	* Returns: float
 	******************************************/
-	public float getSpriteHeight()
+	public float getHeight()
 	{
 		return 2 * (vrScale.fY * iFrameHeight);
 	}

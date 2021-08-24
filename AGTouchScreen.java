@@ -6,7 +6,7 @@
  ********************************************/
 
 //Engine Package
-package android.cg.com.megavirada.AndGraph;
+package game.curso.cursogamesandroid2d.AndGraphics;
 
 //Used packages
 import android.view.MotionEvent;
@@ -19,6 +19,8 @@ public class AGTouchScreen implements OnTouchListener
 	public float fPosX = 0, fPosY = 0;
 	private int iCurrentEvent = 0;
 	public boolean bBackButtonClicked = false;
+	private boolean clickState = false;
+	private boolean clickPrevState = false;
 	
 	/********************************************
 	* Name: getLasPosition()
@@ -41,9 +43,24 @@ public class AGTouchScreen implements OnTouchListener
 	{
 		//Store the last generated event
 		iCurrentEvent = vrEventoMovimento.getAction();
+
 		fPosX = vrEventoMovimento.getX();
 		fPosY = AGScreenManager.iScreenHeight -  vrEventoMovimento.getY();
-		
+
+		if (iCurrentEvent == MotionEvent.ACTION_UP)
+		{
+			clickPrevState = clickState;
+			clickState = false;
+		}
+		else if (iCurrentEvent == MotionEvent.ACTION_DOWN)
+		{
+			clickState = true;
+		}
+		else if (iCurrentEvent == MotionEvent.ACTION_MOVE)
+		{
+			clickPrevState = false;
+		}
+
 		return true;
 	}
 	
@@ -55,13 +72,11 @@ public class AGTouchScreen implements OnTouchListener
 	******************************************/
 	public boolean screenClicked()
 	{
-		//Try if Screen was clicked
-		if (iCurrentEvent == MotionEvent.ACTION_UP)
-		{
-			return true;
-		}
-		
-		return false;
+		boolean res = (clickPrevState && !clickState);
+
+		clickPrevState = false;
+
+		return res;
 	}
 	
 	/*******************************************
@@ -72,30 +87,7 @@ public class AGTouchScreen implements OnTouchListener
 	******************************************/
 	public boolean screenDown()
 	{
-		//Try if Screen was pressed
-		if (iCurrentEvent == MotionEvent.ACTION_DOWN)
-		{
-			return true;
-		}
-		
-		return false;
-	}
-	
-	/*******************************************
-	* Name: screenDragged()
-	* Description: used to test screen drag
-	* Parameters: none
-	* Returns: boolean
-	******************************************/
-	public boolean screenDragged()
-	{
-		//Try if Screen was clicked
-		if (iCurrentEvent == MotionEvent.ACTION_MOVE)
-		{
-			return true;
-		}
-		
-		return false;
+		return clickState;
 	}
 	
 	/*******************************************
@@ -121,9 +113,10 @@ public class AGTouchScreen implements OnTouchListener
 	* Parameters: none
 	* Returns: none
 	******************************************/
-	public void update()
+	public void reset()
 	{
-		if (iCurrentEvent == MotionEvent.ACTION_UP)
-			iCurrentEvent = -1;	
+		clickPrevState = false;
+		clickState = false;
+		bBackButtonClicked = false;
 	}	
 }

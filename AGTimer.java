@@ -6,13 +6,13 @@
  ************************************************/
 
 //Engine Package
-package android.cg.com.megavirada.AndGraph;
+package game.curso.cursogamesandroid2d.AndGraphics;
 
 public class AGTimer 
 {
 	//Attributes
 	public int iEndTime;
-	public int iCurrentTime; 
+	public int iCurrentTime;
 	
 	/*******************************************
 	* Name: AGTimer()

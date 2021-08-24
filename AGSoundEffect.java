@@ -6,15 +6,13 @@
  ********************************************/
 
 //Engine Package
-package android.cg.com.megavirada.AndGraph;
+package game.curso.cursogamesandroid2d.AndGraphics;
 
 //Pacotes utilizados
-
 import android.app.Activity;
 import android.content.res.AssetFileDescriptor;
 import android.media.AudioManager;
 import android.media.SoundPool;
-
 import java.util.ArrayList;
 
 //Armazena os dados dos efeitos de som
@@ -55,7 +53,7 @@ public class AGSoundEffect
 	* Name: loadSoundEffect)
 	* Description: used to load a new sound
 	* Parameters:String
-	* Returns: none
+	* Returns: int
 	******************************************/
 	public int loadSoundEffect(String sSoundName)
 	{
@@ -86,7 +84,7 @@ public class AGSoundEffect
 	 * Parameters:int, float, float
 	 * Returns: none
 	 ******************************************/
-	public void setVolumeSound(int id, float right, float left)
+	public void setVolumeSound(int id, float left, float right)
 	{
 		vrPool.setVolume(id, left, right);
 	}
@@ -142,7 +140,7 @@ public class AGSoundEffect
 	/*******************************************
 	* Name: release()
 	* Description: used to release all references
-	* Parameters:int
+	* Parameters:none
 	* Returns: none
 	******************************************/
 	public void release()

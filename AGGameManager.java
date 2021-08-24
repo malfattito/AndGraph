@@ -6,31 +6,33 @@
  ********************************************/
 
 //Engine Package
-package android.cg.com.megavirada.AndGraph;
+package game.curso.cursogamesandroid2d.AndGraphics;
 
 //Used packages
-
 import android.app.Activity;
 import android.opengl.GLSurfaceView;
 import android.opengl.GLSurfaceView.Renderer;
+import android.text.style.AbsoluteSizeSpan;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.AbsoluteLayout;
+import android.widget.FrameLayout;
+import android.widget.RelativeLayout;
 
 import java.util.ArrayList;
-
 import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.opengles.GL10;
 
 public class AGGameManager implements Renderer
 {
 	//Attibutes
-	public Activity vrActivity = null;
+	Activity vrActivity = null;
 	public static GL10 vrOpenGL = null;
 	private GLSurfaceView vrDrawSurface = null;
 	private ArrayList<AGScene> vrScenes = null;
-	private int FRAME_SIZE = 1;
 	private int iPause = 20;
 	private AGScene vrCurrentScene = null;
+	RelativeLayout rootLayout = null;
 	
 	/********************************************
 	* Name: AGGameManager()
@@ -62,9 +64,13 @@ public class AGGameManager implements Renderer
 		
 		//Sets the renderer of surface
 		vrDrawSurface.setRenderer(this);
-		
+
+		rootLayout = new RelativeLayout(pActivity);
+		rootLayout.setLayoutParams(new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT));
+		rootLayout.addView(vrDrawSurface);
+
 		//Sets this content to surface
-		vrActivity.setContentView(vrDrawSurface);
+		vrActivity.setContentView(rootLayout);
 		
 		//Tests if Accelerometer was requested
 		if (bAccelerometer)
@@ -120,14 +126,7 @@ public class AGGameManager implements Renderer
 		vrOpenGL.glEnable(GL10.GL_TEXTURE_2D);
 		vrOpenGL.glEnableClientState(GL10.GL_VERTEX_ARRAY);
 		vrOpenGL.glEnableClientState(GL10.GL_TEXTURE_COORD_ARRAY);
-								
-		//Send the vertex array to OpenGL
-		vrOpenGL.glVertexPointer(2, GL10.GL_FLOAT, 0,
-				AGNioBuffer.generateNioBuffer(new float[]{	-FRAME_SIZE, -FRAME_SIZE, 
-														    -FRAME_SIZE,  FRAME_SIZE, 
-															 FRAME_SIZE, -FRAME_SIZE, 
-															 FRAME_SIZE,  FRAME_SIZE}));
-		//Try if existe a scene registered
+
 		if (vrCurrentScene != null)
 		{
 			//Inits the current scene
@@ -140,6 +139,7 @@ public class AGGameManager implements Renderer
 			{
 				vrOpenGL.glClearColor(vrCurrentScene.fRed, vrCurrentScene.fGreen, vrCurrentScene.fBlue, 1.0f);
 				vrCurrentScene.reloadSpritesTextures();
+				vrCurrentScene.reloadLayersTextures();
 				vrCurrentScene.restart();
 			}
 		}
@@ -156,15 +156,16 @@ public class AGGameManager implements Renderer
 	******************************************/
 	public void addScene(AGScene pNewScene)
 	{
+		//Set the GameManager for the new scene
+		pNewScene.vrGameManager = this;
+		vrScenes.add(pNewScene);
+
 		//If the first scene, set currentScene
-		if (vrScenes.size() == 0)
+		if (vrScenes.size() == 1)
 		{
-			vrScenes.add(pNewScene);
 			vrCurrentScene = pNewScene;
 			return;
 		}
-		
-		vrScenes.add(pNewScene);
 	}
 	
 	/*******************************************
@@ -187,8 +188,9 @@ public class AGGameManager implements Renderer
 			vrCurrentScene = vrScenes.get(iIndex);
 			vrCurrentScene.init();
 			vrCurrentScene.bSceneStarted = true;
-			AGInputManager.vrTouchEvents.bBackButtonClicked = false;
 		}
+
+		AGInputManager.vrTouchEvents.reset();
 	}
 	
 	/*******************************************
@@ -199,11 +201,15 @@ public class AGGameManager implements Renderer
 	******************************************/
 	public void onPause()
 	{
+		//Stop the surface drawing
+		vrDrawSurface.onPause();
+
 		//Pause the scene execution
 		if (vrCurrentScene != null)
 		{
 			vrCurrentScene.stop();
 			vrCurrentScene.releaseSpritesTextures();
+			vrCurrentScene.releaseLayersTextures();
 		}
 		
 		//Accelerometer pause
@@ -211,7 +217,7 @@ public class AGGameManager implements Renderer
 		
 		//Reset screen size
 		AGScreenManager.setScreenSize(0, 0);
-		vrDrawSurface.onPause();
+
 	}
 	
 	/*******************************************
@@ -234,7 +240,7 @@ public class AGGameManager implements Renderer
 	* Parameters: none
 	* Returns: none
 	******************************************/
-	protected void pause()
+	private void pause()
 	{
 		try
 		{
@@ -296,8 +302,6 @@ public class AGGameManager implements Renderer
 		
 		vrCurrentScene.loop();
 		vrCurrentScene.render();
-		
-		AGInputManager.vrTouchEvents.update();
 		
 		pause();
 	}
