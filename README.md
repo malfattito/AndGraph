@@ -5,4 +5,4 @@ Motor desenvolvido em Java utilizando OpenGL e que oferece recursos como cenas, 
 
 ÚLTIMA MODIFICAÇÃO:
 
-23/09/2021 - Silvano Maneck Malfatti
+23/09/2021 - Autor: Silvano Maneck Malfatti
