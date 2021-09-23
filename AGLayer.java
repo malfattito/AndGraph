@@ -1,6 +1,6 @@
 /********************************************
  Class: AGLayer
- Description: used to represent a scene
+ Description: used to represent a layer in scene
  Author: Silvano Maneck Malfatti
  Date: 05/11/2013
  ********************************************/
